@@ -2,16 +2,19 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import './bootstrap'
 import TodoContextProvider from "./contexts/TodoContext";
-import {ChakraProvider, Heading} from '@chakra-ui/react'
+import {ChakraProvider, Flex} from '@chakra-ui/react'
 import Header from "./components/header/index"
+import TodoContent from "./components/todoContent"
 
 class App extends Component {
     render() {
         return (
-            <>
+            <Flex flexDirection={"column"}>
                 <Header />
-                <Heading>Hello from App.js</Heading>
-            </>
+                <Flex marginTop={"24px"} width={"100%"} justifyContent={"center"}>
+                    <TodoContent/>
+                </Flex>
+            </Flex>
         );
     }
 }
