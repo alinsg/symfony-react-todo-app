@@ -16,14 +16,22 @@ const TodoContextProvider = (props) => {
             {
                 task: "Third task",
                 id: 3
+            },
+            {
+                task: "Third task asjkhdkja shdkjhask jhdkajs hdkjashdkjhaskdjhaksjdhakjshd kjash kdjhask jhk",
+                id: 4
             }
         ],
-        loading: false
     });
 
     //create
-    const createTodo = () => {
-
+    const createTodo = (text) => {
+        setState(prevState => ({
+            todos: [...prevState.todos, {
+                task: text,
+                id: prevState.todos.length+1
+            }]
+        }))
     }
     //read
     const readTodo = () => {
@@ -34,16 +42,18 @@ const TodoContextProvider = (props) => {
 
     }
     //delete
-    const deleteTodo = () => {
-
+    const deleteTodo = (id) => {
+        setState(prevState => ({
+            todos: prevState.todos.filter(todo => todo.id !== id)
+        }))
     }
 
     return (
         <TodoContext.Provider value={{
             ...state,
-            createTodo: createTodo(),
-            updateTodo: updateTodo(),
-            deleteTodo: deleteTodo()
+            createTodo: createTodo,
+            updateTodo: updateTodo,
+            deleteTodo: deleteTodo
         }}>
             {props.children}
         </TodoContext.Provider>
