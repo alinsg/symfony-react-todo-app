@@ -1,16 +1,19 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import './bootstrap'
-import './styles/app.css'
+import TodoContextProvider from "./contexts/TodoContext";
+import {ChakraProvider, Heading} from '@chakra-ui/react'
+import Header from "./components/header/index"
 
 class App extends Component {
     render() {
         return (
-            <div>
-                <h1>Hello from React!</h1>
-            </div>
+            <>
+                <Header />
+                <Heading>Hello from App.js</Heading>
+            </>
         );
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<TodoContextProvider><ChakraProvider><App /></ChakraProvider></TodoContextProvider>, document.getElementById('root'))
