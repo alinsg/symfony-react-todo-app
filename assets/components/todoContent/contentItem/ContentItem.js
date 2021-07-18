@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Flex, Checkbox} from "@chakra-ui/react";
 
-const ContentItem = ({id}) => {
+const ContentItem = ({text}) => {
     const [isCompleted, setIsCompleted] = useState(false)
 
     const toggleToDo = () => {
@@ -13,7 +13,7 @@ const ContentItem = ({id}) => {
             alignItems={"center"}
             padding={"8px 16px"}
         >
-            <Checkbox>List item text {id}</Checkbox>
+            <Checkbox>{text}</Checkbox>
         </Flex>
     )
 }

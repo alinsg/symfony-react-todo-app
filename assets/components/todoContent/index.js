@@ -1,9 +1,12 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {Flex} from '@chakra-ui/react'
+import {TodoContext} from "../../contexts/TodoContext"
 import Header from "./Header"
 import ContentItem from "./contentItem/ContentItem"
 
 const TodoContent = () => {
+    const context = useContext(TodoContext)
+
     return (
         <Flex
             flexDirection={"column"}
@@ -18,27 +21,7 @@ const TodoContent = () => {
                 height={"100%"}
                 overflowY={"scroll"}
             >
-                <ContentItem id={1}/>
-                <ContentItem id={2}/>
-                <ContentItem id={3}/>
-                <ContentItem id={4}/>
-                <ContentItem id={5}/>
-                <ContentItem id={6}/>
-                <ContentItem id={7}/>
-                <ContentItem id={1}/>
-                <ContentItem id={2}/>
-                <ContentItem id={3}/>
-                <ContentItem id={4}/>
-                <ContentItem id={5}/>
-                <ContentItem id={6}/>
-                <ContentItem id={7}/>
-                <ContentItem id={1}/>
-                <ContentItem id={2}/>
-                <ContentItem id={3}/>
-                <ContentItem id={4}/>
-                <ContentItem id={5}/>
-                <ContentItem id={6}/>
-                <ContentItem id={7}/>
+                {context.todos.map(todo => <ContentItem key={todo.id} text={todo.task} />)}
             </Flex>
         </Flex>
     )

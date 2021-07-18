@@ -4,7 +4,21 @@ export const TodoContext = createContext()
 
 const TodoContextProvider = (props) => {
     const [state, setState] = useState({
-        todos: []
+        todos: [
+            {
+                task: "First task",
+                id: 1
+            },
+            {
+                task: "Second task",
+                id: 2
+            },
+            {
+                task: "Third task",
+                id: 3
+            }
+        ],
+        loading: false
     });
 
     //create
