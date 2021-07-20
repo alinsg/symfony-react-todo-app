@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, { useState, useContext } from "react";
 import {
   PopoverContent,
   PopoverHeader,
@@ -10,8 +10,8 @@ import {
   Input,
   ButtonGroup,
 } from "@chakra-ui/react";
-import FocusLock from 'react-focus-lock';
-import {TodoContext} from "../../../contexts/TodoContext";
+import FocusLock from "react-focus-lock";
+import { TodoContext } from "../../../contexts/TodoContext";
 
 const TextInput = React.forwardRef((props, ref) => {
   return (
@@ -19,10 +19,17 @@ const TextInput = React.forwardRef((props, ref) => {
       <FormLabel htmlFor={props.id}>{props.label}</FormLabel>
       <Input ref={ref} id={props.id} onChange={props.onChange} {...props} />
     </FormControl>
-  )
-})
+  );
+});
 
-const Form = ({firstFieldRef, onCancel, inputValue, handleInputChange, onSaveClick, disabledSaveButton}) => {
+const Form = ({
+  firstFieldRef,
+  onCancel,
+  inputValue,
+  handleInputChange,
+  onSaveClick,
+  disabledSaveButton,
+}) => {
   return (
     <Stack spacing={4} padding={"0px 16px 16px 16px"}>
       <TextInput
@@ -36,29 +43,33 @@ const Form = ({firstFieldRef, onCancel, inputValue, handleInputChange, onSaveCli
         <Button variant="outline" onClick={onCancel}>
           Cancel
         </Button>
-        <Button isDisabled={disabledSaveButton} colorScheme="teal" onClick={() => onSaveClick()}>
+        <Button
+          isDisabled={disabledSaveButton}
+          colorScheme="teal"
+          onClick={() => onSaveClick()}
+        >
           Save
         </Button>
       </ButtonGroup>
     </Stack>
-  )
-}
+  );
+};
 
-const EditPopover = ({todoId, firstFieldRef, currentTodo, onCancel}) => {
-  const context = useContext(TodoContext)
-  const [newTodoText, setNewTodoText] = useState(currentTodo)
-  const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(true)
+const EditPopover = ({ todoId, firstFieldRef, currentTodo, onCancel }) => {
+  const context = useContext(TodoContext);
+  const [newTodoText, setNewTodoText] = useState(currentTodo);
+  const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(true);
 
   const handleNewTodoTextChange = (event) => {
-    setNewTodoText(event.target.value)
+    setNewTodoText(event.target.value);
     if (newTodoText !== currentTodo) {
-      setIsSaveButtonDisabled(false)
+      setIsSaveButtonDisabled(false);
     }
-  }
+  };
 
   const onSaveButtonClick = () => {
-    context.updateTodo(todoId, newTodoText)
-  }
+    context.updateTodo(todoId, newTodoText);
+  };
 
   return (
     <>

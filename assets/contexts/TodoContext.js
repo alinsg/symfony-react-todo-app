@@ -41,7 +41,9 @@ const TodoContextProvider = (props) => {
   //update
   const updateTodo = (id, newText) => {
     setState((prevState) => ({
-      todos: prevState.todos.map(todo => (todo.id === id ? {...todo, task: newText} : todo)),
+      todos: prevState.todos.map((todo) =>
+        todo.id === id ? { ...todo, task: newText } : todo
+      ),
     }));
   };
   //delete

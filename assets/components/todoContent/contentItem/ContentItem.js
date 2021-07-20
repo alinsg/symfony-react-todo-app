@@ -1,6 +1,13 @@
 import React, { useState, useContext } from "react";
 import { TodoContext } from "../../../contexts/TodoContext";
-import { Flex, Checkbox, IconButton, PopoverTrigger, Popover, useDisclosure } from "@chakra-ui/react";
+import {
+  Flex,
+  Checkbox,
+  IconButton,
+  PopoverTrigger,
+  Popover,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { DeleteIcon } from "@chakra-ui/icons";
 import EditPopover from "../editPopover/EditPopover";
@@ -9,7 +16,7 @@ const ContentItem = ({ text, id }) => {
   const firstFieldRef = React.useRef(null);
   const context = useContext(TodoContext);
   const [isCompleted, setIsCompleted] = useState(false);
-  const {onOpen, onClose, isOpen} = useDisclosure()
+  const { onOpen, onClose, isOpen } = useDisclosure();
 
   const toggleToDo = () => {
     setIsCompleted(!isCompleted);
@@ -54,7 +61,12 @@ const ContentItem = ({ text, id }) => {
             size={"sm"}
           />
         </PopoverTrigger>
-        <EditPopover firstFieldRef={firstFieldRef} currentTodo={text} onCancel={onClose} todoId={id}/>
+        <EditPopover
+          firstFieldRef={firstFieldRef}
+          currentTodo={text}
+          onCancel={onClose}
+          todoId={id}
+        />
       </Popover>
     </Flex>
   );
