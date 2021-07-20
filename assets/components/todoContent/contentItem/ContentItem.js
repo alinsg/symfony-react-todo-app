@@ -24,7 +24,6 @@ const ContentItem = ({ text, id }) => {
 
   const onDeleteButtonClick = (id) => {
     context.deleteTodo(id);
-    //TODO query doctrine db to remove element
   };
 
   return (
@@ -56,17 +55,21 @@ const ContentItem = ({ text, id }) => {
         <PopoverTrigger>
           <IconButton
             isDisabled={isCompleted}
-            aria-label={"Add todo"}
+            aria-label={"Edit todo"}
             icon={<EditIcon />}
             size={"sm"}
           />
         </PopoverTrigger>
-        <EditPopover
-          firstFieldRef={firstFieldRef}
-          currentTodo={text}
-          onCancel={onClose}
-          todoId={id}
-        />
+        {isOpen ? (
+          <EditPopover
+            firstFieldRef={firstFieldRef}
+            currentTodo={text}
+            onCancel={onClose}
+            todoId={id}
+          />
+        ) : (
+          <></>
+        )}
       </Popover>
     </Flex>
   );
