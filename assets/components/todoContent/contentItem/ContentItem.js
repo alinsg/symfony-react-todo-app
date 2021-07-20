@@ -11,19 +11,26 @@ import {
 import { EditIcon } from "@chakra-ui/icons";
 import { DeleteIcon } from "@chakra-ui/icons";
 import EditPopover from "../editPopover/EditPopover";
+import DeleteDialog from "../deleteDialog/DeleteDialog";
 
 const ContentItem = ({ text, id }) => {
-  const firstFieldRef = React.useRef(null);
   const context = useContext(TodoContext);
+  const firstFieldRef = React.useRef(null);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [acceptDialogOpen, setAcceptDialogOpen] = useState(false);
   const { onOpen, onClose, isOpen } = useDisclosure();
 
   const toggleToDo = () => {
     setIsCompleted(!isCompleted);
   };
 
-  const onDeleteButtonClick = (id) => {
+  const onDeleteButtonClick = () => {
+    setAcceptDialogOpen(true);
+  };
+
+  const onDialogDeleteButtonClick = (id) => {
     context.deleteTodo(id);
+    setAcceptDialogOpen(false);
   };
 
   return (
@@ -71,6 +78,12 @@ const ContentItem = ({ text, id }) => {
           <></>
         )}
       </Popover>
+      <DeleteDialog
+        isOpen={acceptDialogOpen}
+        setIsOpen={setAcceptDialogOpen}
+        setDelete={onDialogDeleteButtonClick}
+        todoId={id}
+      />
     </Flex>
   );
 };
