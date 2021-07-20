@@ -1,7 +1,13 @@
 import React, { useContext, useState } from "react";
-import { Flex, IconButton, Input, useToast } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
+import {
+  Flex,
+  IconButton,
+  Input,
+  Skeleton,
+  Stack,
+  useToast,
+} from "@chakra-ui/react";
+import { CheckIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 import { TodoContext } from "../../contexts/TodoContext";
 import Header from "./Header";
 import ContentItem from "./contentItem/ContentItem";
@@ -53,13 +59,30 @@ const TodoContent = () => {
     >
       <Header />
       <Flex flexDirection={"column"} height={"100%"} overflowY={"scroll"}>
-        {context.todos.map((todo) => (
-          <ContentItem
-            key={todo.task + todo.id}
-            text={todo.task}
-            id={todo.id}
-          />
-        ))}
+        {context.todos.length !== 0 ? (
+          context.todos.map((todo) => (
+            <ContentItem
+              key={todo.task + todo.id}
+              text={todo.task}
+              id={todo.id}
+            />
+          ))
+        ) : (
+          <Stack padding={"16px 24px"}>
+            <Skeleton>
+              <ContentItem text={"Lorem ipsum 1"} id={1} />
+            </Skeleton>
+            <Skeleton>
+              <ContentItem text={"Lorem ipsum 2"} id={2} />
+            </Skeleton>
+            <Skeleton>
+              <ContentItem text={"Lorem ipsum 3"} id={3} />
+            </Skeleton>
+            <Skeleton>
+              <ContentItem text={"Lorem ipsum 4"} id={4} />
+            </Skeleton>
+          </Stack>
+        )}
         <Flex
           justifyContent={"flex-start"}
           padding={"8px 16px"}

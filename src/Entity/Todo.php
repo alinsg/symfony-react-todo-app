@@ -38,4 +38,9 @@ class Todo
 
         return $this;
     }
+
+    public function toArray(): array
+    {
+        return ['id' => $this->id, 'task' => $this->name];
+    }
 }

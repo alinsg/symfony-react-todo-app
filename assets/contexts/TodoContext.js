@@ -1,28 +1,30 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
+import { getAllTodos } from "../services/todoService";
 
 export const TodoContext = createContext();
 
 const TodoContextProvider = (props) => {
   const [state, setState] = useState({
-    todos: [
-      {
-        task: "First task",
-        id: 1,
-      },
-      {
-        task: "Second task",
-        id: 2,
-      },
-      {
-        task: "Third task",
-        id: 3,
-      },
-      {
-        task: "Third task asjkhdkja shdkjhask jhdkajs hdkjashdkjhaskdjhaksjdhakjshd kjash kdjhask jhk",
-        id: 4,
-      },
-    ],
+    todos: [],
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAllTodos().then((response) => {
+        return response.data;
+      });
+      setState((prevState) => ({
+        todos: data,
+      }));
+    };
+    fetchData().then((response) => console.log("Promise solved"));
+  }, []);
+
+  const initialize = (initialTodos) => {
+    setState((prevState) => ({
+      todos: initialTodos,
+    }));
+  };
 
   //create
   const createTodo = (text) => {
@@ -60,6 +62,7 @@ const TodoContextProvider = (props) => {
         createTodo: createTodo,
         updateTodo: updateTodo,
         deleteTodo: deleteTodo,
+        initialize: initialize,
       }}
     >
       {props.children}
