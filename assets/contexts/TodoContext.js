@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getAllTodos } from "../services/todoService";
+import { getAllTodos, addTodo } from "../services/todoService";
 
 export const TodoContext = createContext();
 
@@ -17,7 +17,7 @@ const TodoContextProvider = (props) => {
         todos: data,
       }));
     };
-    fetchData().then((response) => console.log("Promise solved"));
+    fetchData().then((response) => console.log("Updated data"));
   }, []);
 
   const initialize = (initialTodos) => {
@@ -28,15 +28,19 @@ const TodoContextProvider = (props) => {
 
   //create
   const createTodo = (text) => {
-    setState((prevState) => ({
-      todos: [
-        ...prevState.todos,
-        {
-          task: text,
-          id: prevState.todos.length + 1,
-        },
-      ],
-    }));
+    addTodo(text)
+      .then((response) => {
+        setState((prevState) => ({
+          todos: [
+            ...prevState.todos,
+            {
+              task: response.data.task,
+              id: response.data.id,
+            },
+          ],
+        }));
+      })
+      .catch((error) => console.error(error));
   };
   //read
   const readTodo = () => {};
