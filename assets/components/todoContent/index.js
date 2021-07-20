@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
-import { Flex, IconButton, Input } from "@chakra-ui/react";
+import { Flex, IconButton, Input, useToast } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
-import { CheckIcon } from "@chakra-ui/icons";
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { TodoContext } from "../../contexts/TodoContext";
 import Header from "./Header";
 import ContentItem from "./contentItem/ContentItem";
@@ -10,20 +10,37 @@ const TodoContent = () => {
   const context = useContext(TodoContext);
   const [newTodo, setNewTodo] = useState("");
   const [isAddingTodo, setIsAddingTodo] = useState(false);
+  const toast = useToast();
 
   const handleNewTodo = (event) => {
     setNewTodo(event.target.value);
   };
 
   const onNewTodoSubmit = () => {
-    context.createTodo(newTodo);
-    setNewTodo("");
-    setIsAddingTodo(false);
-    //TODO query doctrine db for this
+    if (newTodo === "") {
+      toast({
+        title: "Empty task",
+        description: "You can't add an empty task!",
+        status: "warning",
+        duration: 5000,
+        position: "top",
+        isClosable: true,
+      });
+    } else {
+      context.createTodo(newTodo);
+      setNewTodo("");
+      setIsAddingTodo(false);
+      //TODO query doctrine db for this
+    }
   };
 
   const onAddButtonClick = () => {
     setIsAddingTodo(true);
+  };
+
+  const onCancelButtonClick = () => {
+    setIsAddingTodo(false);
+    setNewTodo("");
   };
 
   return (
@@ -67,12 +84,21 @@ const TodoContent = () => {
               marginRight={"24px"}
             />
             {isAddingTodo ? (
-              <IconButton
-                aria-label={"Add todo"}
-                icon={<CheckIcon />}
-                colorScheme={"green"}
-                onClick={() => onNewTodoSubmit()}
-              />
+              <>
+                <IconButton
+                  aria-label={"Add todo"}
+                  icon={<CheckIcon />}
+                  colorScheme={"green"}
+                  onClick={() => onNewTodoSubmit()}
+                  marginRight={"24px"}
+                />
+                <IconButton
+                  aria-label={"Cancel adding todo"}
+                  icon={<CloseIcon />}
+                  colorScheme={"red"}
+                  onClick={() => onCancelButtonClick()}
+                />
+              </>
             ) : (
               <></>
             )}
