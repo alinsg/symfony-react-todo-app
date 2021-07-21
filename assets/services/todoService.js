@@ -28,4 +28,12 @@ const editTodo = async (taskText, taskId) => {
   }
 };
 
-export { getAllTodos, addTodo, editTodo };
+const removeTodo = async (taskId) => {
+  try {
+    return await axios.delete(`/api/todo/delete/${taskId}`);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getAllTodos, addTodo, editTodo, removeTodo };

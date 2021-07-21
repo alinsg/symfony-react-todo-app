@@ -1,5 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getAllTodos, addTodo, editTodo } from "../services/todoService";
+import {
+  getAllTodos,
+  addTodo,
+  editTodo,
+  removeTodo,
+} from "../services/todoService";
 
 export const TodoContext = createContext();
 
@@ -17,7 +22,7 @@ const TodoContextProvider = (props) => {
         todos: data,
       }));
     };
-    fetchData().then((response) => console.log("Updated data"));
+    fetchData();
   }, []);
 
   const initialize = (initialTodos) => {
@@ -42,8 +47,6 @@ const TodoContextProvider = (props) => {
       })
       .catch((error) => console.error(error));
   };
-  //read
-  const readTodo = () => {};
   //update
   const updateTodo = (id, newText) => {
     editTodo(newText, id)
@@ -58,9 +61,13 @@ const TodoContextProvider = (props) => {
   };
   //delete
   const deleteTodo = (id) => {
-    setState((prevState) => ({
-      todos: prevState.todos.filter((todo) => todo.id !== id),
-    }));
+    removeTodo(id)
+      .then((response) => {
+        setState((prevState) => ({
+          todos: prevState.todos.filter((todo) => todo.id !== id),
+        }));
+      })
+      .catch((error) => console.error(error));
   };
 
   return (
