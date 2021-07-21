@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getAllTodos, addTodo } from "../services/todoService";
+import { getAllTodos, addTodo, editTodo } from "../services/todoService";
 
 export const TodoContext = createContext();
 
@@ -46,11 +46,15 @@ const TodoContextProvider = (props) => {
   const readTodo = () => {};
   //update
   const updateTodo = (id, newText) => {
-    setState((prevState) => ({
-      todos: prevState.todos.map((todo) =>
-        todo.id === id ? { ...todo, task: newText } : todo
-      ),
-    }));
+    editTodo(newText, id)
+      .then((response) => {
+        setState((prevState) => ({
+          todos: prevState.todos.map((todo) =>
+            todo.id === id ? { ...todo, task: response.data.task } : todo
+          ),
+        }));
+      })
+      .catch((error) => console.error(error));
   };
   //delete
   const deleteTodo = (id) => {

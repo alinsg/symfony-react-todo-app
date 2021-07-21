@@ -18,4 +18,14 @@ const addTodo = async (taskText) => {
   }
 };
 
-export { getAllTodos, addTodo };
+const editTodo = async (taskText, taskId) => {
+  try {
+    return await axios.put(`/api/todo/update/${taskId}`, {
+      task: taskText,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getAllTodos, addTodo, editTodo };
