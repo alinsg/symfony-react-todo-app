@@ -9,6 +9,7 @@ import {
   FormLabel,
   Input,
   ButtonGroup,
+  useToast,
 } from "@chakra-ui/react";
 import FocusLock from "react-focus-lock";
 import { TodoContext } from "../../../contexts/TodoContext";
@@ -59,6 +60,7 @@ const EditPopover = ({ todoId, firstFieldRef, currentTodo, onCancel }) => {
   const context = useContext(TodoContext);
   const [newTodoText, setNewTodoText] = useState(currentTodo);
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(true);
+  const toast = useToast();
 
   const handleNewTodoTextChange = (event) => {
     setNewTodoText(event.target.value);
@@ -68,7 +70,7 @@ const EditPopover = ({ todoId, firstFieldRef, currentTodo, onCancel }) => {
   };
 
   const onSaveButtonClick = () => {
-    context.updateTodo(todoId, newTodoText);
+    context.updateTodo(todoId, newTodoText, toast);
   };
 
   return (

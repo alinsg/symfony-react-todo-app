@@ -32,7 +32,7 @@ const TodoContextProvider = (props) => {
   };
 
   //create
-  const createTodo = (text) => {
+  const createTodo = (text, toast) => {
     addTodo(text)
       .then((response) => {
         setState((prevState) => ({
@@ -44,11 +44,29 @@ const TodoContextProvider = (props) => {
             },
           ],
         }));
+        toast({
+          title: "Added task",
+          description: "Added the task successfully!",
+          status: "success",
+          duration: 5000,
+          position: "top",
+          isClosable: true,
+        });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        toast({
+          title: "Task could not be added",
+          description: "There was an error while trying to add the task!",
+          status: "error",
+          duration: 5000,
+          position: "top",
+          isClosable: true,
+        });
+      });
   };
   //update
-  const updateTodo = (id, newText) => {
+  const updateTodo = (id, newText, toast) => {
     editTodo(newText, id)
       .then((response) => {
         setState((prevState) => ({
@@ -56,18 +74,54 @@ const TodoContextProvider = (props) => {
             todo.id === id ? { ...todo, task: response.data.task } : todo
           ),
         }));
+        toast({
+          title: "Edited task",
+          description: "Edited the task successfully!",
+          status: "success",
+          duration: 5000,
+          position: "top",
+          isClosable: true,
+        });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        toast({
+          title: "Task could not be edited",
+          description: "There was an error while trying to edit the task!",
+          status: "error",
+          duration: 5000,
+          position: "top",
+          isClosable: true,
+        });
+      });
   };
   //delete
-  const deleteTodo = (id) => {
+  const deleteTodo = (id, toast) => {
     removeTodo(id)
       .then((response) => {
         setState((prevState) => ({
           todos: prevState.todos.filter((todo) => todo.id !== id),
         }));
+        toast({
+          title: "Deleted task",
+          description: "The task was deleted!",
+          status: "success",
+          duration: 5000,
+          position: "top",
+          isClosable: true,
+        });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        toast({
+          title: "Task could not be edited",
+          description: "There was an error while trying to delete the task!",
+          status: "success",
+          duration: 5000,
+          position: "top",
+          isClosable: true,
+        });
+      });
   };
 
   return (

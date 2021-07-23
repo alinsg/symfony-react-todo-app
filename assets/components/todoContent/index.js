@@ -33,7 +33,7 @@ const TodoContent = () => {
         isClosable: true,
       });
     } else {
-      context.createTodo(newTodo);
+      context.createTodo(newTodo, toast);
       setNewTodo("");
       setIsAddingTodo(false);
       //TODO query doctrine db for this

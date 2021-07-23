@@ -7,6 +7,7 @@ import {
   PopoverTrigger,
   Popover,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import { DeleteIcon } from "@chakra-ui/icons";
@@ -19,6 +20,7 @@ const ContentItem = ({ text, id }) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [acceptDialogOpen, setAcceptDialogOpen] = useState(false);
   const { onOpen, onClose, isOpen } = useDisclosure();
+  const toast = useToast();
 
   const toggleToDo = () => {
     setIsCompleted(!isCompleted);
@@ -29,7 +31,7 @@ const ContentItem = ({ text, id }) => {
   };
 
   const onDialogDeleteButtonClick = (id) => {
-    context.deleteTodo(id);
+    context.deleteTodo(id, toast);
     setAcceptDialogOpen(false);
   };
 
