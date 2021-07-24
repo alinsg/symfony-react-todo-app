@@ -47,6 +47,7 @@ const ContentItem = ({ text, id }) => {
       >
         <Checkbox
           colorScheme={isCompleted ? "green" : "blue"}
+          marginRight={"16px"}
           textDecoration={isCompleted ? "line-through" : "normal"}
           flexGrow={3}
           onChange={() => toggleToDo()}
@@ -54,12 +55,14 @@ const ContentItem = ({ text, id }) => {
           {text}
         </Checkbox>
         <IconButton
+          variant={"ghost"}
           aria-label={"Remove todo"}
           icon={<DeleteIcon />}
           size={"sm"}
           colorScheme={"red"}
           marginRight={"16px"}
           onClick={() => onDeleteButtonClick(id)}
+          isRound
         />
         <PopoverTrigger>
           <IconButton
