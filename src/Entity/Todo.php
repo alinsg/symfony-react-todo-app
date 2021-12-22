@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TodoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @ORM\Entity(repositoryClass=TodoRepository::class)
@@ -11,16 +12,24 @@ use Doctrine\ORM\Mapping as ORM;
 class Todo
 {
     /**
+     * @var int $id
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
+     * @var string $name
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
+
+    /**
+     * @var bool $status
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private bool $status;
 
     public function getId(): ?int
     {
@@ -39,8 +48,26 @@ class Todo
         return $this;
     }
 
+
+    #[ArrayShape(['id' => "int", 'task' => "string", 'status' => "bool"])]
     public function toArray(): array
     {
-        return ['id' => $this->id, 'task' => $this->name];
+        return ['id' => $this->id, 'task' => $this->name, 'status' => $this->status];
+    }
+
+    /**
+     * @return bool
+     */
+    public function getStatus(): bool
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param bool $status
+     */
+    public function setStatus(bool $status=false): void
+    {
+        $this->status = $status;
     }
 }
