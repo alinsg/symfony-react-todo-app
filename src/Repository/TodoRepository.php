@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Todo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 
 /**
  * @method Todo|null find($id, $lockMode = null, $lockVersion = null)
@@ -36,15 +38,21 @@ class TodoRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Todo
+    /**
+     * @throws NonUniqueResultException
+     * @throws Exception
+     */
+    public function findOneBySomeText($value): ?Todo
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
+        $result = $this->createQueryBuilder('t')
+            ->andWhere('t.text = :val')
             ->setParameter('val', $value)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
+        if (null === $result) {
+            throw new Exception('The todo was not found');
+        }
+        return $result;
     }
-    */
+
 }

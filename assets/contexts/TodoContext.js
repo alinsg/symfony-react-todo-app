@@ -41,6 +41,7 @@ const TodoContextProvider = (props) => {
             ...prevState.todos,
             {
               text: response.data.text,
+              status: response.data.status,
               id: response.data.id,
             },
           ],

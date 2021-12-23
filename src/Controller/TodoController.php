@@ -25,12 +25,6 @@ class TodoController extends AbstractController
         $this->todoRepository = $todoRepository;
     }
 
-    /**
-     * Get the entries from the database using the repository
-     * Create an empty array
-     * Iterate through the response from the To do Repository then add to created array the result of a Todo's toArray method
-     * Then use the $this->json($arrayOfTodos) to create a json response from the server
-     */
     #[Route('/read', name: 'api_todo_read_all', methods: ["GET"])]
     public function index(): Response
     {
@@ -42,17 +36,24 @@ class TodoController extends AbstractController
         return $this->json($arrayOfTodos);
     }
 
+    /**
+     * @throws Exception
+     */
     #[Route('/create', name: 'api_todo_create', methods: ["POST"])]
-    public function create(Request $request): JsonResponse
+    public function create(Request $request): Response
     {
         $content = json_decode($request->getContent());
         $todo = new Todo();
-        $todo->setText($content->task);
+        $todo->setText($content->text);
+        $todo->setStatus(false);
         try {
             $this->entityManager->persist($todo);
             $this->entityManager->flush();
+            /** @var TodoRepository $repository */
+            $repository = $this->entityManager->getRepository(Todo::class);
+            $todo = $repository->findOneBySomeText($content->text);
         } catch (Exception $exception) {
-            //todo to add error message
+            throw new Exception($exception->getMessage());
         }
         return $this->json($todo->toArray());
     }
