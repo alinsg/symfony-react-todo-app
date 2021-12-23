@@ -1,0 +1,11 @@
+actor: ApiTester
+modules:
+    enabled:
+      - REST:
+          depends: PhpBrowser
+          url: '%APP_URL%'
+      - Db:
+          dsn: 'mysql:host=127.0.0.1;port=64107;dbname=main'
+          user: 'root'
+          password: 'password'
+      - \App\Tests\Helper\Api

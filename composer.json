@@ -45,6 +45,10 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "codeception/codeception": "^4.1",
+        "codeception/module-db": "^2.0",
+        "codeception/module-phpbrowser": "^2.0",
+        "codeception/module-rest": "^2.0",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "^5.3",
@@ -96,7 +100,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": true,
             "require": "5.3.*"
         }
     }
