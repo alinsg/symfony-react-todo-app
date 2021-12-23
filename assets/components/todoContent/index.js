@@ -62,8 +62,8 @@ const TodoContent = () => {
         {context.todos.length !== 0 ? (
           context.todos.map((todo) => (
             <ContentItem
-              key={todo.task + todo.id}
-              text={todo.task}
+              key={todo.text + todo.id}
+              text={todo.text}
               status={todo.status}
               id={todo.id}
             />

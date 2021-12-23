@@ -11,7 +11,7 @@ const getAllTodos = async () => {
 const addTodo = async (taskText) => {
   try {
     return await axios.post("/api/todo/create", {
-      task: taskText,
+      text: taskText,
     });
   } catch (error) {
     console.error(error);
@@ -20,8 +20,8 @@ const addTodo = async (taskText) => {
 
 const editTodo = async (taskText, taskId) => {
   try {
-    return await axios.put(`/api/todo/update/${taskId}`, {
-      task: taskText,
+    return await axios.put(`/api/todo/update/text/${taskId}`, {
+      text: taskText,
     });
   } catch (error) {
     console.error(error);

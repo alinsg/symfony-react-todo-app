@@ -40,7 +40,7 @@ const TodoContextProvider = (props) => {
           todos: [
             ...prevState.todos,
             {
-              task: response.data.task,
+              text: response.data.text,
               id: response.data.id,
             },
           ],
@@ -72,12 +72,12 @@ const TodoContextProvider = (props) => {
       .then((response) => {
         setState((prevState) => ({
           todos: prevState.todos.map((todo) =>
-            todo.id === id ? { ...todo, task: response.data.task } : todo
+            todo.id === id ? { ...todo, text: response.data.text } : todo
           ),
         }));
         toast({
           title: "Edited task",
-          description: "Edited the task successfully!",
+          description: "Edited the task text successfully!",
           status: "success",
           duration: 5000,
           position: "top",
@@ -88,7 +88,8 @@ const TodoContextProvider = (props) => {
         console.error(error);
         toast({
           title: "Task could not be edited",
-          description: "There was an error while trying to edit the task!",
+          description:
+            "There was an error while trying to edit the task's text!",
           status: "error",
           duration: 5000,
           position: "top",

@@ -47,7 +47,7 @@ class TodoController extends AbstractController
     {
         $content = json_decode($request->getContent());
         $todo = new Todo();
-        $todo->setName($content->task);
+        $todo->setText($content->task);
 
         try {
             $this->entityManager->persist($todo);
@@ -58,11 +58,11 @@ class TodoController extends AbstractController
         return $this->json($todo->toArray());
     }
 
-    #[Route('/update/{id}', name: 'api_todo_update', methods: ["PUT"])]
+    #[Route('/update/text/{id}', name: 'api_todo_update', methods: ["PUT"])]
     public function update(Request $request, Todo $todo): JsonResponse
     {
         $content = json_decode($request->getContent());
-        $todo->setName($content->task);
+        $todo->setText($content->text);
         try {
             $this->entityManager->flush();
         } catch (Exception $exception) {

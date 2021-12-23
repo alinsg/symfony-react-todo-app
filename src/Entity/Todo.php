@@ -20,10 +20,10 @@ class Todo
     private int $id;
 
     /**
-     * @var string $name
+     * @var string $text
      * @ORM\Column(type="string", length=255)
      */
-    private string $name;
+    private string $text;
 
     /**
      * @var bool $status
@@ -36,23 +36,23 @@ class Todo
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getText(): ?string
     {
-        return $this->name;
+        return $this->text;
     }
 
-    public function setName(string $name): self
+    public function setText(string $text): self
     {
-        $this->name = $name;
+        $this->text = $text;
 
         return $this;
     }
 
 
-    #[ArrayShape(['id' => "int", 'task' => "string", 'status' => "bool"])]
+    #[ArrayShape(['id' => "int", 'text' => "string", 'status' => "bool"])]
     public function toArray(): array
     {
-        return ['id' => $this->id, 'task' => $this->name, 'status' => $this->status];
+        return ['id' => $this->id, 'text' => $this->text, 'status' => $this->status];
     }
 
     /**
