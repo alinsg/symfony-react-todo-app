@@ -48,7 +48,6 @@ class TodoController extends AbstractController
         $content = json_decode($request->getContent());
         $todo = new Todo();
         $todo->setText($content->task);
-
         try {
             $this->entityManager->persist($todo);
             $this->entityManager->flush();
@@ -78,14 +77,12 @@ class TodoController extends AbstractController
     public function updateStatus(Request $request, Todo $todo): JsonResponse
     {
         $content = json_decode($request->getContent());
-        dump(json_decode($request->getContent()));
         $todo->setStatus($content->status);
         try {
             $this->entityManager->flush();
         } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
-        dump($todo);
         return $this->json($todo->toArray());
     }
 
