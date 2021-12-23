@@ -37,7 +37,7 @@ class TodoController extends AbstractController
         $todos = $this->todoRepository->findAll();
         $arrayOfTodos = [];
         foreach ($todos as $todo) {
-            array_push($arrayOfTodos, $todo->toArray());
+            $arrayOfTodos[] = $todo->toArray();
         }
         return $this->json($arrayOfTodos);
     }

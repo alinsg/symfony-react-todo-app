@@ -17,6 +17,7 @@
 ###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache
+/public/coverage/
 ###< phpunit/phpunit ###
 
 ###> symfony/webpack-encore-bundle ###
