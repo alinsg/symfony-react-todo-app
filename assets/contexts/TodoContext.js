@@ -3,6 +3,7 @@ import {
   getAllTodos,
   addTodo,
   editTodo,
+  editTodoStatus,
   removeTodo,
 } from "../services/todoService";
 
@@ -95,6 +96,39 @@ const TodoContextProvider = (props) => {
         });
       });
   };
+
+  //update todo status
+  const updateTodoStatus = (id, newStatus, toast) => {
+    editTodoStatus(newStatus, id)
+      .then((response) => {
+        setState((prevState) => ({
+          todos: prevState.todos.map((todo) =>
+            todo.id === id ? { ...todo, status: response.data.status } : todo
+          ),
+        }));
+        toast({
+          title: "Edited task",
+          description: "Edited the task status successfully!",
+          status: "success",
+          duration: 5000,
+          position: "top",
+          isClosable: true,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        toast({
+          title: "Task could not be edited",
+          description:
+            "There was an error while trying to edit the task status!",
+          status: "error",
+          duration: 5000,
+          position: "top",
+          isClosable: true,
+        });
+      });
+  };
+
   //delete
   const deleteTodo = (id, toast) => {
     removeTodo(id)
@@ -130,6 +164,7 @@ const TodoContextProvider = (props) => {
         ...state,
         createTodo: createTodo,
         updateTodo: updateTodo,
+        updateTodoStatus: updateTodoStatus,
         deleteTodo: deleteTodo,
         initialize: initialize,
       }}

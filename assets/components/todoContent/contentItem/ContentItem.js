@@ -14,16 +14,15 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import EditPopover from "../editPopover/EditPopover";
 import DeleteDialog from "../deleteDialog/DeleteDialog";
 
-const ContentItem = ({ text, id }) => {
+const ContentItem = ({ text, status, id }) => {
   const context = useContext(TodoContext);
   const firstFieldRef = React.useRef(null);
-  const [isCompleted, setIsCompleted] = useState(false);
   const [acceptDialogOpen, setAcceptDialogOpen] = useState(false);
   const { onOpen, onClose, isOpen } = useDisclosure();
   const toast = useToast();
 
   const toggleToDo = () => {
-    setIsCompleted(!isCompleted);
+    context.updateTodoStatus(id, !status, toast);
   };
 
   const onDeleteButtonClick = () => {
@@ -46,9 +45,10 @@ const ContentItem = ({ text, id }) => {
         closeOnBlur={false}
       >
         <Checkbox
-          colorScheme={isCompleted ? "green" : "blue"}
+          colorScheme={status ? "green" : "blue"}
+          isChecked={status}
           marginRight={"16px"}
-          textDecoration={isCompleted ? "line-through" : "normal"}
+          textDecoration={status ? "line-through" : "normal"}
           flexGrow={3}
           onChange={() => toggleToDo()}
         >
@@ -66,7 +66,7 @@ const ContentItem = ({ text, id }) => {
         />
         <PopoverTrigger>
           <IconButton
-            isDisabled={isCompleted}
+            isDisabled={status}
             aria-label={"Edit todo"}
             icon={<EditIcon />}
             size={"sm"}

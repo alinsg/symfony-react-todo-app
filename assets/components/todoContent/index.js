@@ -64,6 +64,7 @@ const TodoContent = () => {
             <ContentItem
               key={todo.task + todo.id}
               text={todo.task}
+              status={todo.status}
               id={todo.id}
             />
           ))
