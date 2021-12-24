@@ -54,5 +54,4 @@ class TodoRepository extends ServiceEntityRepository
         }
         return $result;
     }
-
 }
