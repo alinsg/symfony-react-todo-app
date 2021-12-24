@@ -58,6 +58,9 @@ class TodoController extends AbstractController
         return $this->json($todo->toArray());
     }
 
+    /**
+     * @throws Exception
+     */
     #[Route('/update/text/{id}', name: 'api_todo_update', methods: ["PUT"])]
     public function update(Request $request, Todo $todo): JsonResponse
     {
@@ -66,7 +69,7 @@ class TodoController extends AbstractController
         try {
             $this->entityManager->flush();
         } catch (Exception $exception) {
-            //todo to add error message
+            throw new Exception($exception->getMessage());
         }
         return $this->json($todo->toArray());
     }
