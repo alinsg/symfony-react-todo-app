@@ -90,18 +90,17 @@ class TodoController extends AbstractController
         return $this->json($todo->toArray());
     }
 
+    /**
+     * @throws Exception
+     */
     #[Route('/delete/{id}', name: 'api_todo_delete', methods: ["DELETE"])]
     public function delete(Todo $todo): JsonResponse
     {
-        if (!$todo) {
-            throw $this->createNotFoundException('No todo found!');
-        }
-
         try {
             $this->entityManager->remove($todo);
             $this->entityManager->flush();
         } catch (Exception $exception) {
-            //todo to add error message
+            throw new Exception($exception->getMessage());
         }
         return $this->json([
             'message' => 'Todo was deleted successfully'
