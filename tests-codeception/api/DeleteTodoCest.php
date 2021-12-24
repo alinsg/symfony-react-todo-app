@@ -13,6 +13,7 @@ class DeleteTodoCest
 
     public function testSuccess(ApiTester $I)
     {
+        $I->wantTo('Successfully remove a Todo from database');
         $result = $I->grabFromDatabase('todo', 'id', ['text' => 'Codeception Todo to delete']);
         $I->sendDelete('/api/todo/delete/'.$result);
         $I->seeResponseCodeIs(200);
@@ -24,6 +25,7 @@ class DeleteTodoCest
 
     public function testFail(ApiTester $I)
     {
+        $I->wantTo('Unsuccessfully remove a Todo from database');
         $numberOfRecords = $I->grabNumRecords('todo');
         $I->sendDelete('/api/todo/delete/'.$numberOfRecords);
         $I->seeResponseCodeIs(404);
