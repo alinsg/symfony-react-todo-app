@@ -23,7 +23,6 @@ class EditTodoStatusCest
         $I->seeHttpHeader('Content-Type', 'application/json');
         $I->seeResponseContainsJson([
             'id' => 1,
-            'text' => 'Codeception update status Todo',
             'status' => true
         ]);
     }
@@ -39,7 +38,6 @@ class EditTodoStatusCest
         $I->seeHttpHeader('Content-Type', 'application/json');
         $I->seeResponseContainsJson([
             'id' => 1,
-            'text' => 'Codeception update status Todo',
             'status' => false
         ]);
     }
