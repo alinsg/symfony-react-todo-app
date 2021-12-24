@@ -29,3 +29,4 @@ yarn-error.log
 
 /tools/*/vendor
 .php-cs-fixer.cache
+tests-codeception/_output/
