@@ -25,10 +25,17 @@ class TodoController extends AbstractController
         $this->todoRepository = $todoRepository;
     }
 
+    /**
+     * @throws Exception
+     */
     #[Route('/read', name: 'api_todo_read_all', methods: ["GET"])]
     public function index(): Response
     {
-        $todos = $this->todoRepository->findAll();
+        try {
+            $todos = $this->todoRepository->findAll();
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
         $arrayOfTodos = [];
         foreach ($todos as $todo) {
             $arrayOfTodos[] = $todo->toArray();

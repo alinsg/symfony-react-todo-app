@@ -156,6 +156,7 @@
       <path value="$PROJECT_DIR$/vendor/codeception/lib-innerbrowser" />
       <path value="$PROJECT_DIR$/vendor/codeception/module-phpbrowser" />
       <path value="$PROJECT_DIR$/vendor/justinrainbow/json-schema" />
+      <path value="$PROJECT_DIR$/vendor/codeception/module-asserts" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />

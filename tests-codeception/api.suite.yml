@@ -8,4 +8,5 @@ modules:
           dsn: 'mysql:host=127.0.0.1;port=64107;dbname=main'
           user: 'root'
           password: 'password'
+      - Asserts
       - \App\Tests\Helper\Api
