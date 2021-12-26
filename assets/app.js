@@ -5,13 +5,15 @@ import TodoContextProvider from "./contexts/TodoContext";
 import { ChakraProvider, Flex } from "@chakra-ui/react";
 import Header from "./components/header/index";
 import TodoContent from "./components/todoContent";
+import Authentication from "./components/login";
 
 const App = () => {
   return (
-    <Flex flexDirection={"column"}>
+    <Flex flexDirection={"column"} height={"100vh"}>
       <Header />
       <Flex marginTop={"24px"} width={"100%"} justifyContent={"center"}>
-        <TodoContent />
+        {/*<TodoContent />*/}
+        <Authentication />
       </Flex>
     </Flex>
   );
