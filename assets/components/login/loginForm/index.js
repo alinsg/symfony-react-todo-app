@@ -1,27 +1,22 @@
-import React from "react";
-import {
-  chakra,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Stack,
-} from "@chakra-ui/react";
+import React, { useContext } from "react";
+import { chakra, Button, Stack } from "@chakra-ui/react";
 import EmailField from "./EmailField";
 import PasswordField from "./PasswordField";
+import { AuthContext, AUTH_LOGGED_IN } from "../../../contexts/AuthContext";
 
 const LoginForm = (props) => {
+  const authContext = useContext(AuthContext);
+
   return (
     <chakra.form
       onSubmit={(e) => {
         e.preventDefault();
-        // your login logic here
+        authContext.setStatus(AUTH_LOGGED_IN);
       }}
       {...props}
     >
       <Stack spacing="6" marginTop={"24px"}>
         <EmailField />
-        {/*<PasswordField />*/}
         <PasswordField />
         <Button type="submit" colorScheme="blue" size="lg" fontSize="md">
           Sign in

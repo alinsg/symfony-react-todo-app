@@ -3,11 +3,11 @@ import { Flex, Text, Progress } from "@chakra-ui/react";
 import { TodoContext } from "../../contexts/TodoContext";
 
 const Header = () => {
-  const context = useContext(TodoContext);
+  const todoContext = useContext(TodoContext);
 
   return (
     <>
-      {context.loading ? (
+      {todoContext.loading ? (
         <Progress
           size="xs"
           isIndeterminate={true}
