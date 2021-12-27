@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Avatar, Heading } from "@chakra-ui/react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const UserDetails = () => {
+  const authContext = useContext(AuthContext);
+
   return (
     <>
-      <Avatar name={"Dan Abrahmov"} src={"https://bit.ly/dan-abramov"} />
+      <Avatar name={authContext.user.name} src={authContext.user.avatarUrl} />
       <Heading as={"h1"} size={"md"} marginTop={"16px"}>
-        Hello, User
+        Hello, {authContext.user.name}
       </Heading>
     </>
   );

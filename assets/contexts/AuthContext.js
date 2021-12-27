@@ -7,9 +7,10 @@ export const AuthContext = createContext();
 const AuthContextProvider = (props) => {
   const [state, setState] = useState({
     user: {
-      id: "",
-      username: "",
-      name: "",
+      id: "1",
+      username: "alinsg",
+      name: "Alin Simion",
+      avatarUrl: "https://bit.ly/dan-abramov",
     },
     loginStatus: AUTH_LOGGED_OUT,
     loading: false,
