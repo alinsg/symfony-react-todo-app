@@ -1,7 +1,13 @@
 import React, { useContext } from "react";
-import { Flex, Text, Progress, Avatar } from "@chakra-ui/react";
+import { Flex, Text, Progress, IconButton } from "@chakra-ui/react";
 import { TodoContext } from "../../contexts/TodoContext";
 import { AuthContext, AUTH_LOGGED_IN } from "../../contexts/AuthContext";
+import { FiMenu } from "react-icons/fi";
+import { Icon } from "@chakra-ui/icons";
+
+const MenuIcon = () => {
+  return <Icon as={FiMenu} />;
+};
 
 const Header = () => {
   const todoContext = useContext(TodoContext);
@@ -28,15 +34,12 @@ const Header = () => {
         padding={"0 40px"}
       >
         {authContext.loginStatus === AUTH_LOGGED_IN ? (
-          <Avatar
-            size={"sm"}
-            name={authContext.user.name}
-            src={authContext.user.avatarUrl}
+          <IconButton
+            aria-label="Open sidebar"
+            icon={<MenuIcon />}
             marginRight={"16px"}
+            backgroundColor={"white"}
             onClick={() => todoContext.toggleDrawer()}
-            _hover={{
-              cursor: "pointer",
-            }}
           />
         ) : (
           <></>
