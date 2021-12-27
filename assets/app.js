@@ -10,6 +10,7 @@ import { ChakraProvider, Flex } from "@chakra-ui/react";
 import Header from "./components/header/index";
 import TodoContent from "./components/todoContent";
 import Authentication from "./components/login";
+import ContentDrawer from "./components/todoContent/drawer";
 
 const AppContent = () => {
   const authContext = useContext(AuthContext);
@@ -28,6 +29,7 @@ const AppContent = () => {
 const App = () => {
   return (
     <Flex flexDirection={"column"} height={"100vh"}>
+      <ContentDrawer />
       <Header />
       <Flex marginTop={"24px"} width={"100%"} justifyContent={"center"}>
         <AppContent />

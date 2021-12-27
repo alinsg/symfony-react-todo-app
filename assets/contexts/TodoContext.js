@@ -13,19 +13,27 @@ const TodoContextProvider = (props) => {
   const [state, setState] = useState({
     todos: [],
     loading: false,
+    drawerOpen: false,
   });
 
   const startLoading = () => {
     setState((prevState) => ({
-      todos: prevState.todos,
+      ...prevState,
       loading: true,
     }));
   };
 
   const finishLoading = () => {
     setState((prevState) => ({
-      todos: prevState.todos,
+      ...prevState,
       loading: false,
+    }));
+  };
+
+  const toggleDrawer = () => {
+    setState((prevState) => ({
+      ...prevState,
+      drawerOpen: !prevState.drawerOpen,
     }));
   };
 
@@ -50,6 +58,7 @@ const TodoContextProvider = (props) => {
     addTodo(text)
       .then((response) => {
         setState((prevState) => ({
+          ...prevState,
           todos: [
             ...prevState.todos,
             {
@@ -90,6 +99,7 @@ const TodoContextProvider = (props) => {
     editTodo(newText, id)
       .then((response) => {
         setState((prevState) => ({
+          ...prevState,
           todos: prevState.todos.map((todo) =>
             todo.id === id ? { ...todo, text: response.data.text } : todo
           ),
@@ -127,6 +137,7 @@ const TodoContextProvider = (props) => {
     editTodoStatus(newStatus, id)
       .then((response) => {
         setState((prevState) => ({
+          ...prevState,
           todos: prevState.todos.map((todo) =>
             todo.id === id ? { ...todo, status: response.data.status } : todo
           ),
@@ -164,6 +175,7 @@ const TodoContextProvider = (props) => {
     removeTodo(id)
       .then((response) => {
         setState((prevState) => ({
+          ...prevState,
           todos: prevState.todos.filter((todo) => todo.id !== id),
           loading: true,
         }));
@@ -198,6 +210,7 @@ const TodoContextProvider = (props) => {
         updateTodo: updateTodo,
         updateTodoStatus: updateTodoStatus,
         deleteTodo: deleteTodo,
+        toggleDrawer: toggleDrawer,
       }}
     >
       {props.children}

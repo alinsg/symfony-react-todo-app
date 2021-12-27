@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
-import { Flex, Text, Progress } from "@chakra-ui/react";
+import { Flex, Text, Progress, Avatar } from "@chakra-ui/react";
 import { TodoContext } from "../../contexts/TodoContext";
+import { AuthContext, AUTH_LOGGED_IN } from "../../contexts/AuthContext";
 
 const Header = () => {
   const todoContext = useContext(TodoContext);
+  const authContext = useContext(AuthContext);
 
   return (
     <>
@@ -25,6 +27,20 @@ const Header = () => {
         alignItems={"center"}
         padding={"0 40px"}
       >
+        {authContext.loginStatus === AUTH_LOGGED_IN ? (
+          <Avatar
+            size={"sm"}
+            name={authContext.user.name}
+            src={authContext.user.avatarUrl}
+            marginRight={"16px"}
+            onClick={() => todoContext.toggleDrawer()}
+            _hover={{
+              cursor: "pointer",
+            }}
+          />
+        ) : (
+          <></>
+        )}
         <Text fontWeight={"bold"} fontSize={"24px"}>
           ToDo App
         </Text>
