@@ -7,7 +7,7 @@ const UserDetails = () => {
 
   return (
     <>
-      <Avatar name={authContext.user.name} src={authContext.user.avatarUrl} />
+      <Avatar name={authContext.user.name} />
       <Heading as={"h1"} size={"md"} marginTop={"16px"}>
         Hello, {authContext.user.name}
       </Heading>

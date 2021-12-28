@@ -4,14 +4,16 @@ export const AUTH_LOGGED_IN = "logged-in";
 export const AUTH_LOGGED_OUT = "logged-out";
 export const AuthContext = createContext();
 
+const defaultUser = {
+  id: "1",
+  username: "guest",
+  name: "Guest",
+  avatarUrl: undefined,
+};
+
 const AuthContextProvider = (props) => {
   const [state, setState] = useState({
-    user: {
-      id: "1",
-      username: "alinsg",
-      name: "Alin Simion",
-      avatarUrl: "https://bit.ly/dan-abramov",
-    },
+    user: defaultUser,
     loginStatus: AUTH_LOGGED_OUT,
     loading: false,
   });
@@ -31,9 +33,17 @@ const AuthContextProvider = (props) => {
   };
 
   const setStatus = (status) => {
+    const temporaryUser = {
+      id: "2",
+      username: "alinsg",
+      name: "Alin Simion",
+      avatarUrl: "https://bit.ly/dan-abramov",
+    };
     startLoading();
     setState((prevState) => ({
       ...prevState,
+      user:
+        prevState.loginStatus === AUTH_LOGGED_OUT ? temporaryUser : defaultUser,
       loginStatus: status,
     }));
     stopLoading();
